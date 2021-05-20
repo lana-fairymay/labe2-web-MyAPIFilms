@@ -1,0 +1,55 @@
+@import "~routes/style.css";
+
+.head-name{
+    color: #f60;
+}
+.get{
+    
+        width: 600px;
+        padding: 15px;
+        background-color: white;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    
+}
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #edeef0;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 15px;
+    box-sizing: border-box;
+}
+.search_input {
+
+        border: 1px solid #CCD6E4;
+        color: #8E9AD7;
+        border-radius: 2px;
+        height: 30px;
+        padding: 0 30px 0 30px;
+        cursor: text;
+        box-sizing: border-box;
+        size: 20px;
+        width: 380px;
+
+}
+
+.btn {
+    color: #fff;
+    border: none;
+    background: -webkit-linear-gradient(319.84deg, #505add 34.4%, #be40c0 66.11%, #fba82b 96.37%);
+    background: linear-gradient(130.16deg, #505add 34.4%, #be40c0 66.11%, #fba82b 96.37%);
+    width: 150px;
+    height: 30px;
+    border-radius: 2px;
+    margin: 0 40px 0 40px;
+
+}
+.input_wrap{
+    margin-top: 10px;
+}

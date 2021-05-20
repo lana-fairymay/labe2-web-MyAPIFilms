@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My API</title>
+    <style>
+        .head-name {
+            color: #f60;
+        }
+
+        .get {
+
+            width: 600px;
+            padding: 15px;
+            background-color: white;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #edeef0;
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            line-height: 15px;
+            box-sizing: border-box;
+        }
+
+        .search_input {
+
+            border: 1px solid #CCD6E4;
+            color: #8E9AD7;
+            border-radius: 2px;
+            height: 30px;
+            padding: 0 30px 0 30px;
+            cursor: text;
+            box-sizing: border-box;
+            size: 20px;
+            width: 380px;
+
+        }
+
+        .btn {
+            color: #fff;
+            border: none;
+            background: -webkit-linear-gradient(319.84deg, #505add 34.4%, #be40c0 66.11%, #fba82b 96.37%);
+            background: linear-gradient(130.16deg, #505add 34.4%, #be40c0 66.11%, #fba82b 96.37%);
+            width: 150px;
+            height: 30px;
+            border-radius: 2px;
+            margin: 0 40px 0 40px;
+
+        }
+
+        .btn1 {
+            color: #fff;
+            border: none;
+            background: #505add;
+
+            width: 150px;
+            height: 30px;
+            border-radius: 2px;
+            margin: 0 40px 5px 0px;
+
+        }
+
+        .input_wrap {
+            margin-top: 10px;
+        }
+
+        img {
+            height: 210px;
+            width: 140px;
+            border-radius: 4px;
+            margin-right: 60px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .people-film li {
+            padding: 12px 5px;
+            color: #2a5885;
+            border-bottom: 1px solid #b7b7b8;
+        }
+
+        li {
+            margin-right: 86px;
+        }
+
+        a {
+
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .film {
+            margin-right: -200px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .open-button {
+            background-color: #2196F3;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        .form-popup {
+            display: none;
+
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            max-width: 374px;
+            padding: 10px;
+            background-color: white;
+
+        }
+
+        .form-container input[type=text],
+        .form-container input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        .form-container input[type=text]:focus,
+        .form-container input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        .form-container .btn {
+            background-color: #1976D2;
+            color: white;
+
+            border: none;
+            cursor: pointer;
+            width: 75%;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .form-container .cancel {
+            background-color: #448AFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="get">
+        <div class="input_wrap">
+            <h2 class="head-name">Подборка фильмов на КиноПоиске</h2>
+        </div>
+        <input type="text" name="q" value="" class="search_input" id="user-country" placeholder="Страна">
+        <div class="input_wrap">
+            <button class="btn btn_search">Поиск</button>
+            <button class="btn btn_add" onclick="openForm()">Добавить фильм</button>
+
+        </div>
+        <div class="form-popup" id="myForm">
+            <form action="#" class="form-container">
+                <div class="h1">
+                    <h1>Добавить новый фильм</h1>
+                </div>
+                <label for="name"><b>Название</b></label>
+                <input type="text" placeholder="Название фильма" id="name" required>
+                <label for="rating"><b>Рейтинг</b></label>
+                <input type="text" placeholder="Рейтинг фильма" id="rating" required>
+                <label for="country"><b>Страна</b></label>
+                <input type="text" placeholder="Страна производства" id="country" required>
+                <label for="image"><b>Фото</b></label>
+                <input type="text" placeholder="Ссылка на фото" id="image" required>
+                <button type="submit" class="btn" onclick="AddFilm()">Отправить</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Закрыть</button>
+            </form>
+        </div>
+        <ul class="film-list"></ul>
+    </div>
+
+    <!--scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
+
+    <script>
+        const url = 'http://localhost:8080';
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+        const drawFilms = (users) => {
+            console.log(users.name + '123');
+            console.log(users.length);
+            var html = '';
+            for (let index = 0; index < users.length; index++) {
+                html +=
+                    '<li>' +
+                    '<a target="_blank"' + '">' +
+                    '<img src="' + users[index].image + '"/>' +
+                    '<div class="film">' +
+                    '<h4>' + users[index].name + ' ' + '</h4>' +
+                    '<p>' + users[index].country + '</p>' +
+                    '<p>' + users[index].rating + '</p>' +
+                    '<ul>' +
+                    '<li>' +
+                    '<button class="btn1 btn_dell" onclick="dellFilm(' + users[index].id + ')">' + "Удалить" +
+                    '</button>' +
+                    '</li>' +
+                    '<li>' +
+                    '<button class="btn1 btn_dell" onclick="putFilm(' + users[index].id + ')">' + "Редактировать" +
+                    '</button>' +
+                    '</li>' +
+                    '</ul>'
+                '</div>'
+                '</a>' +
+                '</li>';
+            }
+            $('ul').html(html);
+        }
+
+        function putFilm(id) {
+            fetch(url + '/usersId' + '?id=' + id, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => res.json()).then(users => {
+                console.log('123456');
+                console.log(users.name + '1!!!2');
+
+                var html = '';
+                html +=
+                    '<div class="form-popup" id="myForm1">' +
+                    '<form action="#" class="form-container">' +
+                    '<div class="h1">' +
+                    '<h1>Изменить фильм</h1>' +
+                    '</div>' +
+                    '<label for="name"><b>Название: ' + users.name + '</b></label>' +
+                    '<input type="text" placeholder="Название фильма" id="name1" required>' +
+                    '<label for="rating"><b>Рейтинг: ' + users.rating + '</b></label>' +
+                    '<input type="text" placeholder="Рейтинг фильма" id="rating1" required>' +
+                    '<label for="country"><b>Страна: ' + users.country + '</b></label>' +
+                    '<input type="text" placeholder="Страна производства" id="country1" required>' +
+                    '<label for="image"><b>Фото: ' + users.image + '</b></label>' +
+                    '<input type="text" placeholder="Ссылка на фото" id="image1" required>' +
+                    '<button type="submit" class="btn" onclick="Put1Film(' + users.id + ')">Отправить</button>'
+                '<button type="button" class="btn cancel" onclick="closeForm()">Закрыть</button>' +
+                '</form>' +
+                '</div>';
+                $('ul').html(html);
+                document.getElementById("myForm1").style.display = "block";
+            });
+
+        }
+
+        function Put1Film(id) {
+            let name = document.getElementById("name1").value;
+            let rating = document.getElementById("rating1").value;
+            let country = document.getElementById("country1").value;
+            let image = document.getElementById("image1").value;
+            let user = {
+                id: id,
+                name: name,
+                rating: rating,
+                country: country,
+                image: image
+            }
+            console.log(user.name + 'ghjdthrf');
+            console.warn(JSON.stringify(user));
+            fetch(url + "/users", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(user)
+            }).then(res => res.json()).then(users => {
+                drawFilms(users);
+            });
+        }
+
+        function dellFilm(id) {
+            fetch(url + '/users' + '?id=' + id, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => res.json()).then(users => {
+                drawFilms(users);
+            });
+        }
+
+        function findFilm() {
+            let count = document.getElementById("user-country").value;
+
+            fetch(url + '/users' + '?user_name=' + count, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => res.json()).then(users => {
+
+                drawFilms(users);
+            });
+        }
+
+        function AddFilm() {
+            let name = document.getElementById("name").value;
+            let rating = document.getElementById("rating").value;
+            let country = document.getElementById("country").value;
+            let image = document.getElementById("image").value;
+            let user = {
+                id: 0,
+                name: name,
+                rating: rating,
+                country: country,
+                image: image
+            }
+            console.warn(user)
+            console.warn(JSON.stringify(user))
+
+            fetch(url + "/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(user)
+            }).then(res => res.json()).then(users => {
+                drawFilms(users);
+            });
+
+        }
+
+        const btn = document.querySelector(".btn_search");
+
+        btn.addEventListener("click", findFilm);
+    </script>
+
+    <script scc="/routes/routes"></script>
+</body>
+
+</html>
